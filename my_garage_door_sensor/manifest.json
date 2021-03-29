@@ -1,0 +1,9 @@
+{
+  "domain": "my_garage_door_sensor",
+  "name": "My Garage Door Sensor",
+  "documentation": "TBC",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": [],
+  "version": "0.1.0"
+}
