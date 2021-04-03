@@ -2,25 +2,33 @@
 
 ## Setup on Raspberry Pi
 1. Install Docker  
-`> curl -sSL https://get.docker.com | sh`  
-`> sudo systemctl enable docker`  
-`> sudo systemctl start docker`  
-`> sudo usermod -aG docker pi`  
-`> docker --version` 
+```bash
+curl -sSL https://get.docker.com | sh 
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker pi
+docker --version
+```
 
 1. Install bootstrap.sh  
-`> cd ${HOME}`  
-`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/bootstrap.sh`
-`> chmod +x bootstrap.sh`
+```bash
+cd ${HOME}
+wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/bootstrap.sh
+chmod +x bootstrap.sh
+```
 
 1. Install systemd script  
-`> cd /etc/systemd/system`  
-`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/mqtt-garage-door-monitor.service`  
+```bash
+cd /etc/systemd/system
+wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/mqtt-garage-door-monitor.service
+```
 
 1. Modify `mqtt-garage-door-monitor.service` to replace placeholders: `mqtt_server_host`, `mqtt_server_port` and `device_uniq_id`.
 
-1. Start the Garage Door Monitor service  
-`> sudo systemctl start mqtt-garage-door-monitor.service`
+1. Start the Garage Door Monitor service
+```bash
+sudo systemctl start mqtt-garage-door-monitor.service
+```
 
 ## MQTT sample messages
 ### Create garage door entity in HA using MQTT discovery
