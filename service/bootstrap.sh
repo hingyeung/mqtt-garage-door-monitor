@@ -22,6 +22,7 @@ else
 fi
 
 echo "Building Docker image ${DOCKER_IMAGE}"
+cd mqtt_garage_door_monitor
 docker build -t ${DOCKER_IMAGE} .
 
 echo "Running Docker image ${DOCKER_IMAGE}"

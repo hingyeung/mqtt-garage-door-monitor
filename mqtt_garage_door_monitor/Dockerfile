@@ -10,5 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENTRYPOINT ["python", "./garage-door-monitor.py"]
+ENTRYPOINT ["python", "./mqtt_garage_door_monitor.py"]
 CMD ["--mqtt-server-host", "mqtt-server-host", "--mqtt-server-port", "mqtt-server-port", "--device_uniq_id", "device-uniq-id"]
