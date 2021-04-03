@@ -10,25 +10,17 @@
 
 1. Install bootstrap.sh  
 `> cd ${HOME}`  
-`> wget https://raw.githubusercontent.com/hingyeung/garage-door-monitor/master/deployer/bootstrap.sh`
+`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/deployer/bootstrap.sh`
 `> chmod +x bootstrap.sh`
 
 1. Install systemd script  
 `> cd /etc/systemd/system`  
-`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/master/deployer/mqtt-garage-door-monitor.service`  
+`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/deployer/mqtt-garage-door-monitor.service`  
 
-1. Modify `garage-door-monitor.service` to replace placeholders: `<IoT_endpoint>`, `<AWS_root_cert_file>`, `<IoT_cert_file>`, `<IoT_cert_private_key_file>`, `<certs_dir>` `additional_mqtt_server_host`, `additional_mqtt_server_port` and `additional_mqtt_topic_prefix`.
+1. Modify `mqtt-garage-door-monitor.service` to replace placeholders: `mqtt_server_host`, `mqtt_server_port` and `device_uniq_id`.
 
 1. Start the Garage Door Monitor service  
-`> sudo systemctl start garage-door-monitor.service`  
-
-# Delete AWS stack
-This script makes sure all previous versions of the Iot policy created by the specified stack are
-deleted first, then detach the IoT policy from all IoT certificates, before deleting the stack.  
-`> python deployer/delete_stack.py --stack-name ${stack_name}`  
-
-# Attributions
-Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/).
+`> sudo systemctl start mqtt-garage-door-monitor.service`
 
 ## MQTT sample messages
 ### Create garage door entity in HA using MQTT discovery
