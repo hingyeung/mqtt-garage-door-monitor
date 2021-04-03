@@ -1,1 +1,0 @@
-"""My garage door sensor integration."""

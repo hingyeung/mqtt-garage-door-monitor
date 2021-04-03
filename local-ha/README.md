@@ -1,0 +1,1 @@
+A local Home Assistant instance for MQTT integration testing.
