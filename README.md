@@ -29,6 +29,10 @@ wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/s
 ```bash
 sudo systemctl start mqtt-garage-door-monitor.service
 ```
+1. Start the Garage Door Monitor service on boot
+```bash
+sudo systemctl enable mqtt-garage-door-monitor.service
+```
 
 ## Manual garage door sensor setup in Home Assistant's configuration.yaml
 ```yaml
