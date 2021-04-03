@@ -1,0 +1,33 @@
+# Start this service:
+# sudo systemctl start mqtt-garage-door-monitor.service
+# Check status of this service:
+# sudo systemctl status mqtt-garage-door-monitor.service
+# Stop this service:
+# sudo systemctl stop mqtt-garage-door-monitor.service
+# Start this service on boot:
+# sudo systemctl enable mqtt-garage-door-monitor.service
+
+[Unit]
+Description=MQTT Garage Door Monitor Service
+After=network.target
+Requires=docker.service
+
+[Service]
+# <mqtt_server_host> mqtt server host
+# <mqtt_server_port> mqtt server port
+# <device_uniq_id> device unique id for mqtt client
+# REPLACE THE PLACEHOLDERS BEFORE RUN.
+ExecStart=/home/pi/bootstrap.sh <mqtt_server_host> <mqtt_server_port> <device_uniq_id>
+# ensure the name of this file (%N) matches the container name
+ExecStop=/usr/bin/docker stop %N
+WorkingDirectory=/home/pi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=10s
+User=pi
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target

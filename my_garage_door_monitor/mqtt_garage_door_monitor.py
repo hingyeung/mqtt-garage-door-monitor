@@ -93,8 +93,7 @@ def create_mqtt_client(host, port, device_uniq_id):
 def send_config_message(client, device_uniq_id):
     message = {
         "name": "Garage Door", "uniq_id": device_uniq_id, "stat_t": get_state_topic(device_uniq_id),
-        "qos": 1, "payload_on": "closed", "payload_off": "opened", "dev_cla": "garage_door",
-        "value_template": ""
+        "qos": 1, "payload_on": "closed", "payload_off": "opened", "dev_cla": "garage_door"
     }
     client.publish(get_config_topic(device_uniq_id), json.dumps(message), 0)
 
