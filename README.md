@@ -18,21 +18,19 @@ chmod +x bootstrap.sh
 ```
 
 1. Install systemd script  
-```bash
-cd /etc/systemd/system
-wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/mqtt-garage-door-monitor.service
-```
-
+    ```bash
+    cd /etc/systemd/system
+    wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/mqtt-garage-door-monitor.service
+    ```
 1. Modify `mqtt-garage-door-monitor.service` to replace placeholders: `mqtt_server_host`, `mqtt_server_port` and `device_uniq_id`.
-
 1. Start the Garage Door Monitor service
-```bash
-sudo systemctl start mqtt-garage-door-monitor.service
-```
+    ```bash
+    sudo systemctl start mqtt-garage-door-monitor.service
+    ```
 1. Start the Garage Door Monitor service on boot
-```bash
-sudo systemctl enable mqtt-garage-door-monitor.service
-```
+    ```bash
+    sudo systemctl enable mqtt-garage-door-monitor.service
+    ```
 
 ## Manual garage door sensor setup in Home Assistant's configuration.yaml
 ```yaml
