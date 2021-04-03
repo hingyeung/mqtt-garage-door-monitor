@@ -30,13 +30,7 @@ wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/s
 sudo systemctl start mqtt-garage-door-monitor.service
 ```
 
-## MQTT sample messages
-### Create garage door entity in HA using MQTT discovery
-```bash
-/usr/bin/mosquitto_pub -h 192.168.1.129 -p 1883 -t "homeassistant/binary_sensor/garage/garage_door/config" -m '{ "name": "Garage Door", "uniq_id": "garage/garage_door", "stat_t": "homeassistant/binary_sensor/garage/garage_door/state", "qos": 1, "payload_open": "ON", "payload_close": "OFF", "dev_cla": "garage_door", "pl_avail": "online", "pl_not_avail": "offline", "value_template": "{{ value_json.state }}" }'
-```
-
-### Manual garage door sensor setup in configuration.yaml
+## Manual garage door sensor setup in Home Assistant's configuration.yaml
 ```yaml
 binary_sensor:
   - platform: mqtt
@@ -50,6 +44,30 @@ binary_sensor:
         payload_not_available: "offline"
     qos: 0
     device_class: garage_door
+```
+
+## Running local Home Assistant for integration testing
+```bash
+cd local-ha
+./start_ha.sh
+#
+# do your testing
+#
+./stop_ha.sh
+```
+
+## MQTT sample messages
+### Starting a shell with Mqsquitto client pre-installed
+```bash
+cd local_ha
+./start_mqtt_shell.sh
+```
+You can now send MQTT message to your broker using `mosquitto_pub`.
+
+### Create garage door entity in HA using MQTT discovery
+If you don't want to manually setup you garage door monitor in HA's configuration.yaml, you can use the following MQTT message to setup the monitor.
+```bash
+/usr/bin/mosquitto_pub -h 192.168.1.129 -p 1883 -t "homeassistant/binary_sensor/garage/garage_door/config" -m '{ "name": "Garage Door", "uniq_id": "garage/garage_door", "stat_t": "homeassistant/binary_sensor/garage/garage_door/state", "qos": 1, "payload_open": "ON", "payload_close": "OFF", "dev_cla": "garage_door", "pl_avail": "online", "pl_not_avail": "offline", "value_template": "{{ value_json.state }}" }'
 ```
 
 ### Garage door closed
