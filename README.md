@@ -11,11 +11,11 @@ docker --version
 ```
 
 1. Install bootstrap.sh  
-```bash
-cd ${HOME}
-wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/bootstrap.sh
-chmod +x bootstrap.sh
-```
+    ```bash
+    cd ${HOME}
+    wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/bootstrap.sh
+    chmod +x bootstrap.sh
+    ```
 
 1. Install systemd script  
     ```bash
