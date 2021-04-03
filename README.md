@@ -10,12 +10,12 @@
 
 1. Install bootstrap.sh  
 `> cd ${HOME}`  
-`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/deployer/bootstrap.sh`
+`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/bootstrap.sh`
 `> chmod +x bootstrap.sh`
 
 1. Install systemd script  
 `> cd /etc/systemd/system`  
-`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/deployer/mqtt-garage-door-monitor.service`  
+`> wget https://raw.githubusercontent.com/hingyeung/mqtt-garage-door-monitor/main/service/mqtt-garage-door-monitor.service`  
 
 1. Modify `mqtt-garage-door-monitor.service` to replace placeholders: `mqtt_server_host`, `mqtt_server_port` and `device_uniq_id`.
 
