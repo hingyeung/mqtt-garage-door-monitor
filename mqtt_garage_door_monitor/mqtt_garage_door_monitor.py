@@ -47,7 +47,7 @@ def get_config_topic(device_uniq_id):
 def get_state_topic(device_uniq_id):
     return f"homeassistant/binary_sensor/{device_uniq_id}/state"
 
-def get_availabilituy_topic(device_uniq_id):
+def get_availability_topic(device_uniq_id):
     return f"homeassistant/binary_sensor/{device_uniq_id}/availability"
 
 def parse_args():
@@ -84,7 +84,7 @@ def create_mqtt_client(host, port, device_uniq_id):
 
     # set up last will before connecting
     client.will_set(
-        get_availabilituy_topic(device_uniq_id), 'offline', 0, False
+        get_availability_topic(device_uniq_id), 'offline', 1, True
     )
     
     client.connect(host, port=port)
@@ -102,7 +102,7 @@ def send_config_message(client, device_uniq_id):
 
 def send_birth_message(mqtt_client, device_uniq_id):
     mqtt_client.publish(
-        get_availabilituy_topic(device_uniq_id), 'online'
+        get_availability_topic(device_uniq_id), 'online', 1, True
     )
 
 def main():
