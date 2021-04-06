@@ -71,14 +71,17 @@ def parse_args():
     )
 
 def on_connect(client, userdata, flags, rc):
-    logger.info("Connected With Result Code: {}".format(rc))
+    device_id = userdata
+    logger.info("{} connected with result code: {}".format(device_id, rc))
+    send_birth_message(client, device_id)
 
 def on_disconnect(client, userdata, rc=0):
     logger.info("Disconnected result code "+str(rc))
     client.loop_stop()
 
 def create_mqtt_client(host, port, device_uniq_id):
-    client = mqtt.Client(getClientId())
+    client = mqtt.Client(client_id=getClientId(), userdata=device_uniq_id)
+
     # set up last will before connecting
     client.will_set(
         get_availabilituy_topic(device_uniq_id), 'offline', 0, False
@@ -97,6 +100,11 @@ def send_config_message(client, device_uniq_id):
     }
     client.publish(get_config_topic(device_uniq_id), json.dumps(message), 0)
 
+def send_birth_message(mqtt_client, device_uniq_id):
+    mqtt_client.publish(
+        get_availabilituy_topic(device_uniq_id), 'online'
+    )
+
 def main():
     (interval, mqtt_host, mqtt_port, device_uniq_id) = parse_args()
     mqtt_client = create_mqtt_client(mqtt_host, mqtt_port, device_uniq_id)
@@ -110,9 +118,7 @@ def main():
     mqtt_client.loop_start()
 
     # send birth message
-    mqtt_client.publish(
-        get_availabilituy_topic(device_uniq_id), 'online'
-    )
+    send_birth_message(mqtt_client, device_uniq_id)
 
     while True:
         # Be consistent with HA binary sensor standard
