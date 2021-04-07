@@ -8,7 +8,7 @@ import argparse
 import json
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 # https://github.com/home-assistant/example-custom-config/tree/master/custom_components/example_sensor
 DOOR_PIN = 24
@@ -77,7 +77,6 @@ def on_connect(client, userdata, flags, rc):
 
 def on_disconnect(client, userdata, rc=0):
     logger.info("Disconnected result code "+str(rc))
-    client.loop_stop()
 
 def create_mqtt_client(host, port, device_uniq_id):
     client = mqtt.Client(client_id=getClientId(), userdata=device_uniq_id)
@@ -87,9 +86,9 @@ def create_mqtt_client(host, port, device_uniq_id):
         get_availability_topic(device_uniq_id), 'offline', 1, True
     )
     
-    client.connect(host, port=port)
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
+    client.connect(host, port=port)
     return client
 
 
