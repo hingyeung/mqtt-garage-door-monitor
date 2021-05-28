@@ -28,6 +28,7 @@ docker build -t ${DOCKER_IMAGE} .
 echo "Running Docker image ${DOCKER_IMAGE}"
 # https://bit.ly/2OiWBtR
 docker run --rm --cap-add SYS_RAWIO --device /dev/mem \
+  -v /etc/localtime:/etc/localtime:ro \
   --name ${DOCKER_IMAGE} \
   ${DOCKER_IMAGE} \
   --mqtt-server-host ${MQTT_SERVER_HOST} \
