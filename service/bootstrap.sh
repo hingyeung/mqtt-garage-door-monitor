@@ -4,7 +4,9 @@ set -e
 
 MQTT_SERVER_HOST=$1
 MQTT_SERVER_PORT=$2
-MQTT_DEVICE_UNIQ_ID=$3
+MQTT_USERNAME=$3
+MQTT_PASSWORD=$4
+MQTT_DEVICE_UNIQ_ID=$5
 
 PROJECT_DIR=mqtt-garage-door-monitor
 DOCKER_IMAGE=mqtt-garage-door-monitor
@@ -33,4 +35,6 @@ docker run --rm --cap-add SYS_RAWIO --device /dev/mem \
   ${DOCKER_IMAGE} \
   --mqtt-server-host ${MQTT_SERVER_HOST} \
   --mqtt-server-port ${MQTT_SERVER_PORT} \
+  --mqtt-username ${MQTT_USERNAME} \
+  --mqtt-password ${MQTT_PASSWORD} \
   --device_uniq_id ${MQTT_DEVICE_UNIQ_ID}

@@ -17,7 +17,7 @@ Requires=docker.service
 # <mqtt_server_port> mqtt server port
 # <device_uniq_id> device unique id for mqtt client
 # REPLACE THE PLACEHOLDERS BEFORE RUN.
-ExecStart=/home/pi/bootstrap.sh <mqtt_server_host> <mqtt_server_port> <device_uniq_id>
+ExecStart=/home/pi/bootstrap.sh <mqtt_server_host> <mqtt_server_port> <mqtt_username> <mqtt_password> <device_uniq_id>
 # ensure the name of this file (%N) matches the container name
 ExecStop=/usr/bin/docker stop %N
 WorkingDirectory=/home/pi

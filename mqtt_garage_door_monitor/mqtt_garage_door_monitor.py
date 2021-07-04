@@ -58,6 +58,10 @@ def parse_args():
                         help="MQTT Server Host", default="localhost")
     parser.add_argument("--mqtt-server-port", action="store", dest="mqtt_server_port",
                         help="MQTT Server Port", default=1883, type=int)
+    parser.add_argument("--mqtt-username", action="store", dest="mqtt_username",
+                        help="MQTT client username")
+    parser.add_argument("--mqtt-password", action="store", dest="mqtt_password",
+                        help="MQTT client password")
     parser.add_argument("--device_uniq_id", action="store", dest="device_uniq_id",
                         help="Device unique ID", default="garage/garage_door")
 
@@ -67,6 +71,8 @@ def parse_args():
         args.interval,
         args.mqtt_server_host,
         args.mqtt_server_port,
+        args.mqtt_username,
+        args.mqtt_password,
         args.device_uniq_id
     )
 
@@ -78,7 +84,7 @@ def on_connect(client, userdata, flags, rc):
 def on_disconnect(client, userdata, rc=0):
     logger.info("Disconnected result code "+str(rc))
 
-def create_mqtt_client(host, port, device_uniq_id):
+def create_mqtt_client(host, port, username, password, device_uniq_id):
     client = mqtt.Client(client_id=getClientId(), userdata=device_uniq_id)
 
     # set up last will before connecting
@@ -88,6 +94,8 @@ def create_mqtt_client(host, port, device_uniq_id):
     
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
+    if username and password:
+        client.username_pw_set(username=username, password=password)
     client.connect(host, port=port)
     return client
 
@@ -105,8 +113,8 @@ def send_birth_message(mqtt_client, device_uniq_id):
     )
 
 def main():
-    (interval, mqtt_host, mqtt_port, device_uniq_id) = parse_args()
-    mqtt_client = create_mqtt_client(mqtt_host, mqtt_port, device_uniq_id)
+    (interval, mqtt_host, mqtt_port, mqtt_username, mqtt_password, device_uniq_id) = parse_args()
+    mqtt_client = create_mqtt_client(mqtt_host, mqtt_port, mqtt_username, mqtt_password, device_uniq_id)
     
     # using manual setup in configuration.yaml
     # send_config_message(mqtt_client, device_uniq_id)
